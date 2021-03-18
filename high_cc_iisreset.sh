@@ -87,11 +87,8 @@ for row in $(echo "${servers}" | jq -r '.[] | @base64'); do
 		 echo "$server - Old timestamp: $last_recycle_timestamp" 
 		 echo "$server - New timestamp: $current_timestamp" 
 	 	 
-		 #jq '.[]|select(.host=="'$server'")|.last_recycle_timestamp = "'$current_timestamp'"' recycle_timestamp-OLC45.json	
-		 
 		 # Call python script to replace the server's last_recycle_timestamp (args: server, current timestamp, JSON file
                  python replace_last_recycle_timestamp.py $server $current_timestamp $json_audit_recycle_timestamp
-		 #jq '.[]|select(.host=="'$server'")|.last_recycle_timestamp' recycle_timestamp-OLC45.json
 
 		 #issue app pool recycle via Rundeck API here
 		 echo "$server - invoking IISRESET on $server ..."
